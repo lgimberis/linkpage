@@ -10,8 +10,6 @@
         <script src="https://unpkg.com/vue@3"></script>
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
-
-        <button></button>
         <h1>Links</h1>
         <section id="app">
             <form @submit.prevent="onSubmit" method="post" action="">
@@ -96,12 +94,16 @@
                                 this.allLinks = this.allLinks.filter((link) => link.Name !== newLink.Name);
                             }
                             else {
+                                newLink['ID'] = response.data.created_id;
                                 this.allLinks.push(newLink);
                             }
                         }
 
                         axios.post("{% url 'link-create' %}", newLink, {headers: {"X-CSRFToken": this.token, "content-type": "application/json"}})
                         .then(manageResponse.bind(this));
+                    },
+                    onDelete() {
+                          
                     }
                 }
             });

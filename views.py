@@ -13,7 +13,7 @@ def links(request):
     else:
         form = LinkForm()
     context = {
-        "links": [{"Name": link.name, "URL": link.link_url, "Description": link.description} for link in Link.objects.all()],
+        "links": [{"ID": link.id, "Name": link.name, "URL": link.link_url, "Description": link.description} for link in Link.objects.all()],
         "link_form": form,
     }
     return render(request, "linkpage/links.html", context=context)
@@ -33,7 +33,7 @@ def link_create(request):
         link = Link(name=link_name, link_url=link_url, description=link_description)
         link.clean()
         link.save()
-        return JsonResponse({"code": 200, "message": ""})
+        return JsonResponse({"code": 200, "message": "", "created_id": link.id})
     except ValidationError as e:
         print(e)
         return JsonResponse({"code": 400, "message": str(e)})
