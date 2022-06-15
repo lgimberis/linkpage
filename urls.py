@@ -1,10 +1,18 @@
 
-from django.urls import path
+from django.urls import path, include
+from django.contrib.auth.models import User
+from rest_framework import routers
 
 from . import views
 
+# Serializers define the API representation.
+
+# Routers provide an easy way of automatically determining the URL conf.
+router = routers.DefaultRouter()
+router.register('', views.LinkViewSet)
+
+# Wire up our API using automatic URL routing.
+# Additionally, we include login URLs for the browsable API.
 urlpatterns = [
-    path("", views.links, name='links'),
-    path("search", views.link_search, name='link-search'),
-    path("create", views.link_create, name='link-create'),
+    path('', include(router.urls)),
 ]

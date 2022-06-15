@@ -8,6 +8,7 @@ class Link(models.Model):
     name = models.CharField(max_length=80, verbose_name="Name")
     link_url = models.URLField(verbose_name="URL")
     description = models.TextField(verbose_name="Description", blank=True, null=True)
+    owner = models.ForeignKey('auth.User', related_name="links", on_delete=models.CASCADE)
 
     def clean(self):
         try:
