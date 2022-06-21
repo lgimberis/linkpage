@@ -15,9 +15,14 @@ from .forms import LinkForm
 
 # ViewSets define the view behavior.
 class LinkViewSet(viewsets.ModelViewSet):
-    queryset = Link.objects.all()
     serializer_class = LinkSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
+
+    def get_queryset(self):
+        if self.request.user.is_authenticated:
+            return Link.objects.filter(owner=self.request.user)
+        else:
+            return Link.objects.filter(owner__is_staff=True)
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)

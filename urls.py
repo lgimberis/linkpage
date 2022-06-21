@@ -9,7 +9,7 @@ from . import views
 
 # Routers provide an easy way of automatically determining the URL conf.
 router = routers.DefaultRouter()
-router.register('', views.LinkViewSet)
+router.register('links', views.LinkViewSet, basename="link")
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
