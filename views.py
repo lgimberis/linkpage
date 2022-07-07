@@ -27,8 +27,3 @@ class LinkViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
-
-@api_view(['GET'])
-def is_authenticated(request):
-    response = Response({"is_authenticated": request.user.is_authenticated})
-    return response

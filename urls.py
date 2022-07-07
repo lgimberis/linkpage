@@ -15,5 +15,4 @@ router.register('links', views.LinkViewSet, basename="link")
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
     path('', include(router.urls)),
-    path('is-authed', views.is_authenticated, name='is-authed'),
 ]
